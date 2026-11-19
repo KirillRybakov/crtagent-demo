@@ -2,13 +2,30 @@
   "synthetic": true,
   "base": "main",
   "live_showcase": {
-    "head": "demo/full",
+    "base": "baseline/minimal",
+    "head": "demo/minimal",
     "modules": [
-      "pricing.py",
-      "search_results.py"
+      "pricing.py"
     ]
   },
   "scenarios": [
+    {
+      "id": "minimal",
+      "head": "demo/minimal",
+      "module": "pricing.py",
+      "function": "discount",
+      "requirement": "discount(99)=0; discount(100)=10; discount(101)=10. The threshold 100 is inclusive.",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "confirmed",
+      "purpose": "Минимальный живой показ на слабой локальной модели",
+      "default": false,
+      "base": "baseline/minimal"
+    },
     {
       "id": "discount",
       "head": "demo/discount",
@@ -23,7 +40,8 @@
       ],
       "expected_certificate": "confirmed",
       "purpose": "Граничный дефект, контекст policy.py, четыре состояния и сертификат",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "verification",
@@ -39,7 +57,8 @@
       ],
       "expected_certificate": "confirmed",
       "purpose": "Булева семантика in, различающий вход без маркера, AST-наблюдения",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "method",
@@ -55,7 +74,8 @@
       ],
       "expected_certificate": "confirmed",
       "purpose": "Ревью методов с квалифицированным именем Class.method",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "async",
@@ -71,7 +91,8 @@
       ],
       "expected_certificate": "confirmed",
       "purpose": "Async subject и корректное ожидание результата в синхронном pytest",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "refactor",
@@ -87,7 +108,8 @@
       ],
       "expected_certificate": "refuted",
       "purpose": "Контроль без дефекта; живой reviewer вправе вернуть пустой список",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "intentional",
@@ -103,7 +125,8 @@
       ],
       "expected_certificate": "refuted",
       "purpose": "Смена требования; различие поведения не означает регрессию",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "ambiguity",
@@ -119,7 +142,8 @@
       ],
       "expected_certificate": "needs_requirement",
       "purpose": "Причинность при непринятом требовании; в UI принять трактовку или отклонить гипотезу",
-      "default": true
+      "default": true,
+      "base": "main"
     },
     {
       "id": "environment",
@@ -133,7 +157,8 @@
       ],
       "expected_certificate": "inconclusive",
       "purpose": "Намеренно отсутствующая зависимость; остановка остальных состояний",
-      "default": false
+      "default": false,
+      "base": "main"
     },
     {
       "id": "flaky",
@@ -144,7 +169,8 @@
       "expected_worlds": [],
       "expected_certificate": "variable",
       "purpose": "Реальная случайность: flaky не гарантирован за два повтора",
-      "default": false
+      "default": false,
+      "base": "main"
     }
   ],
   "coverage_showcase": {
@@ -154,5 +180,13 @@
     "expected_deleted_file": "legacy_note.py",
     "expected_added_symbol": "coverage_sample.new_label",
     "expected_deleted_symbol": "coverage_sample.retired_label"
+  },
+  "extended_showcase": {
+    "base": "main",
+    "head": "demo/full",
+    "modules": [
+      "pricing.py",
+      "search_results.py"
+    ]
   }
 }
