@@ -7,6 +7,6 @@ def parse_results(raw: str, query: str):
     for block in blocks:
         if not block.strip():
             continue
-        verified = "✅" in block
+        verified = "" in block
         results.append(SimpleNamespace(title=block.strip(), verified=verified))
     return SimpleNamespace(query=query, results=results)
