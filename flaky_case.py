@@ -1,2 +1,4 @@
+import secrets
+
 def stable_token():
-    return 0
+    return secrets.randbelow(2)
