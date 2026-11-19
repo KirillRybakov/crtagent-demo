@@ -1,0 +1,150 @@
+{
+  "synthetic": true,
+  "base": "main",
+  "live_showcase": {
+    "head": "demo/full",
+    "modules": [
+      "pricing.py",
+      "search_results.py"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "discount",
+      "head": "demo/discount",
+      "module": "pricing.py",
+      "function": "discount",
+      "requirement": "discount(99) = 0; discount(100) = 10; discount(101) = 10. Порог включительный. Правила заданы также в policy.py.",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "confirmed",
+      "purpose": "Граничный дефект, контекст policy.py, четыре состояния и сертификат",
+      "default": true
+    },
+    {
+      "id": "verification",
+      "head": "demo/verification",
+      "module": "search_results.py",
+      "function": "parse_results",
+      "requirement": "parse_results возвращает объекты с boolean verified: без маркера ✅ значение False, с маркером True.",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "confirmed",
+      "purpose": "Булева семантика in, различающий вход без маркера, AST-наблюдения",
+      "default": true
+    },
+    {
+      "id": "method",
+      "head": "demo/method",
+      "module": "cart.py",
+      "function": "Cart.total",
+      "requirement": "Cart.total(20, 3) должен возвращать 60; общая стоимость равна цене, умноженной на количество.",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "confirmed",
+      "purpose": "Ревью методов с квалифицированным именем Class.method",
+      "default": true
+    },
+    {
+      "id": "async",
+      "head": "demo/async",
+      "module": "billing.py",
+      "function": "invoice_total",
+      "requirement": "async invoice_total(100, 5) должен возвращать 105. Комиссия прибавляется к сумме.",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "confirmed",
+      "purpose": "Async subject и корректное ожидание результата в синхронном pytest",
+      "default": true
+    },
+    {
+      "id": "refactor",
+      "head": "demo/refactor",
+      "module": "pricing.py",
+      "function": "discount",
+      "requirement": "Поведение скидки не изменяется: discount(99)=0, discount(100)=10, discount(101)=10.",
+      "expected_worlds": [
+        "passed",
+        "passed",
+        "passed",
+        "passed"
+      ],
+      "expected_certificate": "refuted",
+      "purpose": "Контроль без дефекта; живой reviewer вправе вернуть пустой список",
+      "default": true
+    },
+    {
+      "id": "intentional",
+      "head": "demo/intentional",
+      "module": "pricing.py",
+      "function": "discount",
+      "requirement": "Новое принятое требование: скидка 10 предоставляется начиная со 120 включительно. При сумме 100 скидка 0. Изменение намеренное.",
+      "expected_worlds": [
+        "assertion_failed",
+        "passed",
+        "passed",
+        "assertion_failed"
+      ],
+      "expected_certificate": "refuted",
+      "purpose": "Смена требования; различие поведения не означает регрессию",
+      "default": true
+    },
+    {
+      "id": "ambiguity",
+      "head": "demo/ambiguous-refund",
+      "module": "refunds.py",
+      "function": "refund_amount",
+      "requirement": "",
+      "expected_worlds": [
+        "passed",
+        "assertion_failed",
+        "assertion_failed",
+        "passed"
+      ],
+      "expected_certificate": "needs_requirement",
+      "purpose": "Причинность при непринятом требовании; в UI принять трактовку или отклонить гипотезу",
+      "default": true
+    },
+    {
+      "id": "environment",
+      "head": "demo/environment-error",
+      "module": "environment_case.py",
+      "function": "is_nonnegative",
+      "requirement": "is_nonnegative(0) должен возвращать True.",
+      "expected_worlds": [
+        "passed",
+        "environment_error"
+      ],
+      "expected_certificate": "inconclusive",
+      "purpose": "Намеренно отсутствующая зависимость; остановка остальных состояний",
+      "default": false
+    },
+    {
+      "id": "flaky",
+      "head": "demo/flaky",
+      "module": "flaky_case.py",
+      "function": "stable_token",
+      "requirement": "stable_token() должен стабильно возвращать 0.",
+      "expected_worlds": [],
+      "expected_certificate": "variable",
+      "purpose": "Реальная случайность: flaky не гарантирован за два повтора",
+      "default": false
+    }
+  ]
+}
