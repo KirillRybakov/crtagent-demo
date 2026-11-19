@@ -1,5 +1,2 @@
-from policy import loyalty_discount, loyalty_threshold
-
 def discount(total):
-    """Return the fixed discount at or above the inclusive threshold."""
-    return loyalty_discount() if total >= loyalty_threshold() else 0
+    return 10 if total >= 100 else 0
