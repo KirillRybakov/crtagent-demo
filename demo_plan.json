@@ -146,5 +146,13 @@
       "purpose": "Реальная случайность: flaky не гарантирован за два повтора",
       "default": false
     }
-  ]
+  ],
+  "coverage_showcase": {
+    "head": "demo/coverage",
+    "requirement": "format_version() must now return 2; the format-version change is intentional.",
+    "expected_added_file": "new_feature.py",
+    "expected_deleted_file": "legacy_note.py",
+    "expected_added_symbol": "coverage_sample.new_label",
+    "expected_deleted_symbol": "coverage_sample.retired_label"
+  }
 }
