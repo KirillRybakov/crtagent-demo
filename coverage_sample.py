@@ -1,5 +1,5 @@
 def format_version():
-    return 1
+    return 2
 
-def retired_label():
-    return "legacy"
+def new_label():
+    return "new"
